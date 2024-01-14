@@ -36,15 +36,8 @@ namespace OpenTonTracker
         {
             _urls = new(new[]
             {
-                new[] 
-                { 
-                    InlineKeyboardButton.WithUrl($"{Emojis.BarChart}Chart", "https://dyor.io/ru/token/EQDf84FT8tdHZeI2-LXdb8gPMRqHRSABrmi8jI7MzvVpGJKZ"),
-                    InlineKeyboardButton.WithUrl("Group", "https://t.me/OpenCoinCommunity")
-                },
-                new[]
-                {
-                    InlineKeyboardButton.WithUrl("Buy on Dedust", "https://dedust.io/swap/TON/OPEN")
-                }
+                InlineKeyboardButton.WithUrl("Buy on Dedust", "https://dedust.io/swap/TON/OPEN"),
+                InlineKeyboardButton.WithUrl($"{Emojis.BarChart}Chart", "https://dyor.io/ru/token/EQDf84FT8tdHZeI2-LXdb8gPMRqHRSABrmi8jI7MzvVpGJKZ")
             });
         }
 
