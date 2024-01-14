@@ -66,7 +66,7 @@ namespace OpenTonTracker
                 try
                 {
                     Trade[] trades = await _dedustClient.FetchPoolTradesAsync(OPENTON_POOL, 1);
-                    await Task.Delay(250);
+                    await Task.Delay(200);
                     Pool[] pools = await _dedustClient.FetchPoolsAsync();
                     Pool openTonPool = pools.Where(x => x.Address == OPENTON_POOL).First();
                     _lastTonPrice = openTonPool.CalculateRightToLeft(1d, null, 5);
@@ -89,7 +89,7 @@ namespace OpenTonTracker
                     trades = await _dedustClient.FetchPoolTradesAsync(OPENTON_POOL, 5, lastLt);
                     if (trades.Length > 0)
                     {
-                        await Task.Delay(250);
+                        await Task.Delay(200);
                         Pool[] pools = await _dedustClient.FetchPoolsAsync();
                         tonUsdtPool = pools.Where(x => x.Address == USDTTON_POOL).First();
                         openTonPool = pools.Where(x => x.Address == OPENTON_POOL).First();
