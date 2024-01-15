@@ -17,8 +17,8 @@ namespace OpenTonTracker
         private const string OPEN_ADDRESS = "EQDf84FT8tdHZeI2-LXdb8gPMRqHRSABrmi8jI7MzvVpGJKZ";
         private const string TONVIEWER = "https://tonviewer.com/";
         private const int MS_DELAY = 10000;
-        private const int RETRY_DELAY = 133;
-        private const int PRICE_CHANGE_RETRIES = 3;
+        private const int RETRY_DELAY = 120;
+        private const int PRICE_CHANGE_RETRIES = 4;
 
         private static readonly EventId _botEvent = new(420, "OpenPrice");
 #if !DEBUG
@@ -36,7 +36,7 @@ namespace OpenTonTracker
         {
             _urls = new(new[]
             {
-                InlineKeyboardButton.WithUrl("Buy on Dedust", "https://dedust.io/swap/TON/OPEN"),
+                InlineKeyboardButton.WithUrl($"{Emojis.MoneyBag}Buy on Dedust", "https://dedust.io/swap/TON/OPEN"),
                 InlineKeyboardButton.WithUrl($"{Emojis.BarChart}Chart", "https://dyor.io/ru/token/EQDf84FT8tdHZeI2-LXdb8gPMRqHRSABrmi8jI7MzvVpGJKZ")
             });
         }
@@ -112,12 +112,12 @@ namespace OpenTonTracker
                     double usdtPrice = tonUsdtPool.CalculateLeftToRight(tonPrice);
                     double priceChange = tonPrice / _lastTonPrice - 1d;
                     bool changeUp = priceChange >= 0d;
-                    Rune changeEmoji = changeUp ? Emojis.UptrendChart : Emojis.DowntrendChart;
+                    string changeEmoji = changeUp ? Emojis.UptrendChart : Emojis.DowntrendChart;
                     sb.AppendLine().Append(Emojis.BarChart.ToString()).Append("Price: ")
                         .Append(Utils.EscapeMarkdown(tonPrice.ToString("0.000000")))
                         .Append(" TON \\($")
                         .Append(Utils.EscapeMarkdown(usdtPrice.ToString("0.000000")))
-                        .Append("\\) ").Append(changeEmoji.ToString()).Append(" \\")
+                        .Append("\\) ").Append(changeEmoji).Append(" \\")
                         .Append(changeUp ? '+' : '-').Append(Utils.EscapeMarkdown(Math.Abs(priceChange * 100d).ToString("0.00"))).Append('%');
                     _lastTonPrice = tonPrice;
                     lastLt = trades[^1].Lt;

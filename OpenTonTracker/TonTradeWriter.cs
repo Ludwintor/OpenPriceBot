@@ -23,14 +23,14 @@ namespace OpenTonTracker
             foreach (Trade trade in trades)
             {
                 bool isBuy = trade.AssetOut.Type == AssetType.Jetton && trade.AssetOut.Address == _assetAddress;
-                Rune buySellEmoji = isBuy ? Emojis.GreenDot : Emojis.RedDot;
+                string buySellEmoji = isBuy ? Emojis.GreenDot : Emojis.RedDot;
                 string buySell = isBuy ? "BUY" : "SELL";
                 double ton = (double)(isBuy ? trade.AmountIn : trade.AmountOut) / Math.Pow(10d, 9d);
                 double jetton = (double)(isBuy ? trade.AmountOut : trade.AmountIn) / Math.Pow(10d, _assetDecimals);
                 double usd = tonUsdtPool?.CalculateLeftToRight(ton) ?? 0d;
 
                 // :RED_DOT:SELL 500 TOKEN for 5 TON ($2.50) EQAA...FOO_
-                sb.Append(buySellEmoji.ToString()).Append(buySell).Append(' ')
+                sb.Append(buySellEmoji).Append(buySell).Append(' ')
                   .Append(Utils.EscapeMarkdown(jetton.ToString("0.00"))).Append(' ').Append(_assetSymbol).Append(" for ")
                   .Append(Utils.EscapeMarkdown(ton.ToString("0.00"))).Append(" TON ")
                   .Append("\\($").Append(Utils.EscapeMarkdown(usd.ToString("0.00"))).Append("\\) [")
